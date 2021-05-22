@@ -4,14 +4,18 @@ import useStyles from './styles';
 
 import { useDispatch } from 'react-redux';
 import FileBase from 'react-file-base64';
+import { createPost } from '../../actions/posts';
 
 const Form = () => {
     const classes = useStyles();
 
     const [postData, setPostData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
 
-    const handleSubmit = () => {
+    const dispatch = useDispatch();
 
+    const handleSubmit = (e) => {
+        e.preventDefault(); //to prevent it from refreshing
+        dispatch(createPost(postData));
     };
 
     const clear = () => {
