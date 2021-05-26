@@ -13,6 +13,10 @@ app.use(express.json({ limit: "30mb",  extended: true }));
 
 app.use('/posts', postRoutes);
 
+app.get('/', (req, res) => {
+    res.send('Hello, this is memories API');
+});
+
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
