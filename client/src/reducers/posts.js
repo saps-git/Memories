@@ -1,7 +1,7 @@
 import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from '../constants/actionTypes';
 
 
-export default (posts = [], action) => {
+const postReducer =  (posts = [], action) => {
     switch(action.type){ 
         case UPDATE:  //when two cases have same function, we can club them together
         case LIKE:
@@ -15,4 +15,6 @@ export default (posts = [], action) => {
         default:
             return posts;
     }
-} 
+}
+
+export default postReducer;
