@@ -67,13 +67,23 @@ export const deletePost = async (req, res) => {
 
 export const likePost = async (req, res) => {
     const { id } = req.params;
+
+    if(!req.userId) //passsed from middleware 
+        return res.json({ message: "Unauthenticated" });
     
     if(!mongoose.Types.ObjectId.isValid(id))
         return res.status(404).send(`No post with id: ${id}`);
 
     const post = await PostMessage.findById(id);
-    const updatedPost = await PostMessage.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true });
+    const index = post.likes.findIndex((id) => id === String(req.userId)); // checking if current user has already liked the post, by comparing his id, with all the ids stored in the likes array
 
+    if(index === -1){ //if he hasn't liked, (index will be -1)
+        post.likes.push(req.userId); //then push his id in the likes array
+    }else{ //if current logged in user has already liked,  
+        post.likes = post.likes.filter((id) => id !== String(req.userId)); //then filter out his id from the likes array, i.e unlike
+    }
+
+    const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true });
     res.json(updatedPost);
 };
 

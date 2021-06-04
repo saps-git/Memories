@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { AUTH } from '../../constants/actionTypes';
 import { useDispatch } from 'react-redux';
+import { signin, signup } from '../../actions/auth';
+
 import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+
 
 import { GoogleLogin } from 'react-google-login';
 import { useHistory } from 'react-router-dom';
@@ -11,22 +14,31 @@ import useStyles from './styles';
 import Input from './Input';
 import Icon from './icon';
 
+const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: ''};
+
 const SignUp = () => {
     console.log("adios")
     const classes = useStyles();
     const [isSignup, setIsSignup] = useState(false);
     const history = useHistory();
     const dispatch = useDispatch();
+    const [form, setForm] = useState(initialState);
 
     const [showPassword, setShowPassword] = useState(false);
     const handleShowPassword = () => setShowPassword(!showPassword);
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
+        if(isSignUp){
+            dispatch(signup(form, history));
+        } else{
+            dispatch(signin(form, history));
+        }
     };
 
-    const handleChange = () => {
-
+    const handleChange = (e) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
     };
 
     const switchMode = () => {
