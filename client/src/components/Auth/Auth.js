@@ -30,7 +30,7 @@ const SignUp = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if(isSignUp){
+        if(isSignup){
             dispatch(signup(form, history));
         } else{
             dispatch(signin(form, history));
