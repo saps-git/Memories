@@ -17,7 +17,6 @@ import Icon from './icon';
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: ''};
 
 const SignUp = () => {
-    console.log("adios")
     const classes = useStyles();
     const [isSignup, setIsSignup] = useState(false);
     const history = useHistory();

@@ -3,7 +3,7 @@ const secret = 'GULAG';
 
 const auth = async (req, res, next) => {
     try{
-        const token = req.headers.authorization.split(" ")[1];
+        const token = req.headers.authorization.split(" ")[1]; //taking token from header
         const isCustomAuth = token.length < 500;   //Oauth token is more than 500 chars, and our jwt less than 500
 
         let decodeData;
