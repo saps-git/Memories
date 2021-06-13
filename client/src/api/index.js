@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-//const url = 'https://saps-memories-project.herokuapp.com/posts';
+const API = axios.create({ baseURL: 'https://saps-memories-project.herokuapp.com' });
 
-const API = axios.create({ baseURL: 'http://localhost:5000' });
+//const API = axios.create({ baseURL: 'http://localhost:5000' });
 
 API.interceptors.request.use((req) => {
     if(localStorage.getItem('profile')) {
